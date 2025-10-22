@@ -3,22 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Seesaw Simulation - Havva Burcin Ozkan</title>
-    
+    <link rel="stylesheet" href="styles.css">
+    <title>Seesaw Simultation</title>
 </head>
 <body>
-     <div id="component">
+    <div id="component">
         <div id="status">
             <div class="card"><h3>Left Weight</h3><p class="leftWeight">0.0 kg</p></div>
             <div class="card"><h3>Next Weight</h3><p class="nextWeight">0.0 kg</p></div>
             <div class="card"><h3>Right Weight</h3><p class="rightWeight">0.0 kg</p></div>
             <div class="card"><h3>Tilt Angle</h3><p class="tiltAngle">0.0 °</p></div>
         </div>
-         <div id="screen">
-        <div id="pivot"></div>
-        <div id="seesaw"></div>
-        <div id="preview"><span id="previewWeight"></span></div>
-    </div>
+        <div id="screen">
+            
+            <div id="seesaw">
+                <div id="bar"></div>
+                <div id="pivot"></div>
+            </div>
+            <div id="preview"><span id="previewWeight"></span></div>
+            <div id="floor"></div>
+        </div>
+         <div id="buttonControl">
+            <button id="resetButton">Reset</button>
+         </div>
+         <div id="lastActions">
+            Last Actions:
+         </div>
     </div>
 </body>
 </html>
