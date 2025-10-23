@@ -22,7 +22,6 @@ body {
     display: flex;
     justify-content: space-between;
     margin-bottom: 20px;
-  
 }
 
 .card {
@@ -40,6 +39,7 @@ body {
     margin-bottom: 5px;
     font-weight: 600;
 }
+
 .card p {
     font-size: 19px;
     font-weight: bold;
@@ -55,7 +55,6 @@ body {
   justify-content: center;
   align-items: flex-end;
   border-radius: 1px;
-
 }
 
 #seesaw {
@@ -74,11 +73,11 @@ body {
   width: 100%;
   height: 25px;
   background-color: #8B4513;
-  z-index: 10;
+  transition : transform 0.4s ease-out
+
 }
 
 #pivot {
-  
   position: absolute;
   bottom: 70px; 
   left: 50%;
@@ -86,19 +85,15 @@ body {
   border-left: 25px solid transparent;
   border-right: 25px solid transparent;
   border-bottom: 35px solid #432323;  
-  z-index: 5;
 }
 
-
 #floor{
-
     position: absolute;
     bottom: 0;
     width: 100%;
     height: 40px;
     background-color: #B0DB9C;
 }
-
 
 #buttonControl {
     display: flex;
@@ -107,8 +102,6 @@ body {
 }
 
 #resetButton {
-   
-    bottom: 20px;
     left: 50%;
     background-color: #59AC77;
     color: white;
@@ -116,22 +109,13 @@ body {
     border-radius: 8px;
     padding: 10px 15px;
     cursor: pointer;
-
 }
+
 #resetButton:hover {
     background-color: #2F5755;
     transform: scale(1.05);
 }
 
-#lastActions {
-
-  margin-top: 15px;
-  height: 100px;
-  background: white;
-  border-radius: 5px;
-  font-size: 14px;
-  color: #000000;
-}
 #preview {
   position: absolute;
   width: 40px;
@@ -143,9 +127,7 @@ body {
   align-items: center;
   color: white;
   font-weight: bold;
-  opacity: 0;
   pointer-events: none;
- 
 }
 
 .object {
@@ -154,30 +136,25 @@ body {
   height: 30px;
   border-radius: 50%;
   color: white;
-  font-weight: bold;
-
-
   text-align: center;
   bottom: 110px;       
-       
+  transition: transform 0.4s ease , opacity 0.4s ease in out;
 }
 
-
 #lastActions{
-  width: 95%;
+  width: 98%;
   height: 200px;    
   background-color: #FCF9EA;
   border-radius: 10px;
-  padding: 10px;
-  margin: 10px;
+  padding-left: 15px;
+  margin-top: 15px;
   overflow-y: auto;  
 }
 
 .last-item {
-
   border-radius: 6px;
   padding: 6px 8px;
   font-size: 14px;
   color: #000000;
-  
+  font-family: 'Courier New', Courier, monospace;
 }
