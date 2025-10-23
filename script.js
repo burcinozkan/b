@@ -8,7 +8,7 @@
 
   let randomColor = getRandomColor();
   let nextWeight = randomWeight();
-
+  nextWeightDisplay.textContent = `${nextWeight} kg`;
   updatePreview(nextWeight);
   let objects = [];
 
@@ -18,23 +18,11 @@
   }
 
   function updatePreview(weight) {
-    const size = 30 + weight * 5;
+    const size = 30 + weight * 3;
     preview.style.height = `${size}px`;
     preview.style.width = `${size}px`;
     preview.textContent = weight + "kg";
   }
-
-
-  let targetX = 0;
-  let currentX = 0;
-  let animationFrame;
-
-  function animatePreview() {
-    currentX += (targetX - currentX) * 0.2; 
-    preview.style.left = `${currentX}px`;
-    animationFrame = requestAnimationFrame(animatePreview);
-  }
-  animatePreview();
 
   screen.addEventListener("pointermove", (e) => {
     const barRect = bar.getBoundingClientRect();
@@ -74,7 +62,7 @@
     const object = document.createElement("div");
     object.classList.add("object");
 
-    const size = 30 + nextWeight * 5;
+    const size = 30 + nextWeight * 3;
     object.style.width = `${size}px`;
     object.style.height = `${size}px`;
     object.style.backgroundColor = randomColor;
@@ -98,24 +86,24 @@
 
 
     bar.appendChild(object);
+    playSound("drop");
 
     objects.push({
       element: object,
       weight: nextWeight,
       distance: relativeX,
     });
-    
-    addLastAction(nextWeight);
+   
+    addLastAction(nextWeight, relativeX);
     nextWeight = randomWeight();
     randomColor = getRandomColor();
     updatePreview(nextWeight);
     nextWeightDisplay.textContent = `${nextWeight.toFixed(2)} kg`;
 
-    calculateTilt();
+    calculateAngle();
 
    
   });
-
 
   function getRandomColor() {
     const letters = "0123456789ABCDEF";
@@ -130,7 +118,7 @@
     element.style.backgroundColor = getRandomColor();
   }
 
-  function calculateTilt() {
+  function calculateAngle() {
     
     if (objects.length === 0) return;
 
@@ -155,7 +143,7 @@
     });
 
     const totalMoment = rightMoment - leftMoment;
-    let tilt = totalMoment / 800; 
+    let tilt = totalMoment / 40; 
 
     tilt = Math.max(Math.min(tilt, 30), -30); 
 
@@ -167,21 +155,29 @@
 
   } 
 
-  function addLastAction(weight){
+  function addLastAction(weight, distance){
     const lastActionList = document.getElementById("lastActionsList");
 
     const lastItem = document.createElement("div");
     lastItem.classList.add("last-item")
     
-
+    const side = distance > 0 ? "right" : "left";
+    const pxDistance =Math.round( Math.abs(distance));
     lastActionList.prepend(lastItem);
-    lastItem.textContent = `${weight} kg added`;
+    lastItem.textContent = `${weight} kg dropped on the ${side} side at ${pxDistance}px from the center`;
   }
 
   document.getElementById("resetButton").addEventListener("click", reset);
-  function reset(){
-    bar.style.transform = "rotate(0deg)"
 
+  function reset(){
+
+    bar.style.transform = "rotate(0deg)"
+      
+    bar.style.transition = "transform 0.4s ease";
+    
+    setTimeout(() => (bar.style.transition = ""), 500);
+
+    playSound("reset");
     objects.forEach(object=>object.element.remove());
     objects = [];
 
@@ -196,3 +192,10 @@
     updatePreview(nextWeight);
     nextWeightDisplay.textContent = `${nextWeight} kg`;
   }
+
+  function playSound(soundName){
+    const sound = new Audio(`sounds/${soundName}.mp3`);
+    sound.volume = 0.5;
+    sound.play();
+  }
+  
